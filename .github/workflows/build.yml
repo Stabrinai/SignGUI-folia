@@ -34,3 +34,9 @@ jobs:
         CENTRAL_USERNAME: SQIXE3CJ
         CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+    - name: Upload SignGUI jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: SignGUI-Build
+        path: api/target/signgui-2.3.2.jar
