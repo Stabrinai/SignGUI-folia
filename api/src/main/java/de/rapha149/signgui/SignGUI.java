@@ -119,7 +119,7 @@ public class SignGUI {
                 };
 
                 if (callHandlerSynchronously)
-                    scheduler.runTask(SchedulerType.SYNC, player.getLocation() ,task -> runnable.run());
+                    scheduler.runTask(SchedulerType.SYNC, signLoc == null ? player.getLocation() : signLoc, task -> runnable.run());
                 else
                     scheduler.runTask(SchedulerType.ASYNC, task -> runnable.run());
             });
