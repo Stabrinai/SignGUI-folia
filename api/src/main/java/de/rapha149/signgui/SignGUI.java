@@ -2,6 +2,9 @@ package de.rapha149.signgui;
 
 import de.rapha149.signgui.SignGUIAction.SignGUIActionInfo;
 import de.rapha149.signgui.version.VersionWrapper;
+import fr.euphyllia.energie.Energie;
+import fr.euphyllia.energie.model.Scheduler;
+import fr.euphyllia.energie.model.SchedulerType;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
@@ -52,6 +55,7 @@ public class SignGUI {
     private final SignGUIFinishHandler handler;
     private final boolean callHandlerSynchronously;
     private final JavaPlugin plugin;
+    public static Scheduler scheduler;
 
     /**
      * Constructs a new SignGUI. Use {@link SignGUI#builder()} to get a new instance.
@@ -64,6 +68,7 @@ public class SignGUI {
         this.handler = handler;
         this.callHandlerSynchronously = callHandlerSynchronously;
         this.plugin = plugin;
+        scheduler = new Energie(plugin).getScheduler(Energie.SchedulerSoft.MINECRAFT);
     }
 
     /**
@@ -114,9 +119,9 @@ public class SignGUI {
                 };
 
                 if (callHandlerSynchronously)
-                    Bukkit.getScheduler().runTask(plugin, runnable);
+                    scheduler.runTask(SchedulerType.SYNC, task -> runnable.run());
                 else
-                    runnable.run();
+                    scheduler.runTask(SchedulerType.SYNC, signLoc, task -> runnable.run());
             });
         } catch (Exception e) {
             throw new SignGUIException("Failed to open sign gui", e);
