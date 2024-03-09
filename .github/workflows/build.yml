@@ -27,9 +27,9 @@ jobs:
     - name: Build the dependencies of the api
       run: mvn -B install --file pom.xml -pl '!api'
 
-    - name: Build and deploy the api
+    - name: Package
       working-directory: ./api
-      run: mvn -B deploy --file pom.xml
+      run: mvn -B package --file pom.xml
       env:
         CENTRAL_USERNAME: SQIXE3CJ
         CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
