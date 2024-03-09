@@ -119,9 +119,9 @@ public class SignGUI {
                 };
 
                 if (callHandlerSynchronously)
-                    scheduler.runTask(SchedulerType.SYNC, task -> runnable.run());
+                    scheduler.runTask(SchedulerType.SYNC, player.getLocation() ,task -> runnable.run());
                 else
-                    scheduler.runTask(SchedulerType.SYNC, signLoc, task -> runnable.run());
+                    scheduler.runTask(SchedulerType.ASYNC, task -> runnable.run());
             });
         } catch (Exception e) {
             throw new SignGUIException("Failed to open sign gui", e);

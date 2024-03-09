@@ -132,7 +132,7 @@ public interface SignGUIAction {
 
             @Override
             public void execute(SignGUI gui, SignEditor signEditor, Player player) {
-                SignGUI.scheduler.runTask(SchedulerType.SYNC,player,task -> runnable.run(), null);
+                SignGUI.scheduler.runTask(SchedulerType.SYNC, player, task -> runnable.run(), null);
             }
         };
     }
